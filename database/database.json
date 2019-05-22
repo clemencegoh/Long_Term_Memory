@@ -1,0 +1,18 @@
+{
+  "Math": {
+    "Next": "Wed May 22 00:00:00 2019",
+    "FlashCards": {
+      "01": {
+        "Question": "Question here",
+        "Answer": "Answer here",
+        "Image": "Imagepath here",
+        "Notes": "Notes here",
+        "Hint": "Hint here?",
+        "State": 1,
+        "Next": "Wed May 22 00:00:00 2019",
+        "Created": "Wed May 22 00:00:00 2019",
+        "Completed": true
+      }
+    }
+  }
+}
