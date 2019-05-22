@@ -139,6 +139,37 @@ def getNext(subject, id):
         resp = jsonify(success=True)
         return resp
 
+# answer and complete card
+@app.route('/flashcards/<subject>/<id>/complete', methods=['POST'])
+def completeCard(subject, id):
+
+    success = request.form["Success"]
+
+    with open(DATABASE, 'r') as f:
+        card = Flashcard()
+        # data = f.read()
+        data = json.loads(f.read())
+        card.from_dict(data[subject]["FlashCards"][id])
+
+        if success == "true" or success == "True":
+            card.completeCard()
+        else:
+            # reset state
+            card.__setstate__(1)
+            card.completeCard()
+
+        if data[subject]["Next"] > card.next.ctime():
+            data[subject]["Next"] = card.next.ctime()
+
+        data[subject]["FlashCards"][id] = card.to_dict()
+
+    # commit
+    with open(DATABASE, 'w') as f:
+        f.write(json.dumps(data))
+
+    # 200 OK
+    resp = jsonify(success=True)
+    return resp
 
 if __name__=='__main__':
     # checkDB()

@@ -19,6 +19,9 @@ class Flashcard:
         self.next = datetime.now().date()
         self.completed = True
 
+    def __setstate__(self, state):
+        self.state = state
+
     def completeCard(self):
         self.next += timedelta(self.state)
         self.state *= 2

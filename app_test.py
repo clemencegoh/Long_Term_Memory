@@ -23,6 +23,19 @@ class TestCardModels(unittest.TestCase):
                               })
             self.assertEqual(r.status_code, 200)
 
+    def test_complete(self):
+        r = requests.post("http://localhost:8080/flashcards/Math/01/complete",
+                          data={
+                              "Success": True
+                          })
+        self.assertEqual(r.status_code, 200)
+
+    def test_complete_unsuccessful(self):
+        r = requests.post("http://localhost:8080/flashcards/Math/01/complete",
+                          data={
+                              "Success": False
+                          })
+        self.assertEqual(r.status_code, 200)
 
 
 if __name__ == '__main__':
