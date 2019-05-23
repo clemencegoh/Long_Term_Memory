@@ -34,10 +34,14 @@ def home():
     with open(DATABASE, 'r') as data:
         # loop through subjects
         for sub, item in json.load(data).items():
+
+            today = datetime.datetime.now()
+            converted = datetime.datetime.strptime(item["Next"], '%a %b %d %H:%M:%S %Y')
+
             # loop through questions and update
-            if item["Next"] == datetime.datetime.now().date().ctime():
+            if converted == today:
                 stats.append("Pending")
-            elif item["Next"] < datetime.datetime.now().date().ctime():
+            elif converted < today:
                 stats.append("Overdue")
             else:
                 stats.append("None")
@@ -56,8 +60,9 @@ def explore_subject(subject):
     """
 
     cards = {}
-    flashcard_list = []
-    flashcard_id = []
+    flashcard_list = []  # the flashcard object itself
+    flashcard_id = []  # unique ids for each card, should be just a number
+    flashcard_complete = []
 
     # open subject
     with open(DATABASE, 'r') as data:
@@ -71,13 +76,22 @@ def explore_subject(subject):
         f = Flashcard()
         f.from_dict(value)
         f.checkCard()
-        flashcard_id.append(key)
-        flashcard_list.append(f.to_json())
 
+        # ensure sorted by not completed at the top
+        if not f.completed:
+            flashcard_id.insert(0, key)
+            flashcard_list.insert(0, f.question)
+            flashcard_complete.insert(0, f.completed)
+        else:
+            flashcard_id.append(key)
+            flashcard_list.append(f.question)
+            flashcard_complete.append(f.completed)
 
-    return render_template('index.html',
+    return render_template('subject.html',
+                           subject=subject,
                            flashcard_id = flashcard_id,
-                           flashcard_list= flashcard_list)
+                           flashcard_list= flashcard_list,
+                           flashcard_complete=flashcard_complete)
 
 
 ############# create, delete content #########################
@@ -94,7 +108,8 @@ def getNext(subject, id):
             data = json.loads(f.read())
             single_card = data[subject]["FlashCards"][id]
 
-        return render_template("index.html", single_card=single_card)
+        return render_template("card.html",
+                               single_card=single_card)
 
     if request.method == 'POST':
 

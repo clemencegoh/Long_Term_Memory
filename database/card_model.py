@@ -73,8 +73,8 @@ class Flashcard:
         self.notes = o["Notes"]
         self.imagepath = o["Image"]
         self.state = o["State"]
-        self.created = datetime.strptime(o["Created"], '%a %b %d %H:%M:%S %Y')
-        self.next = datetime.strptime(o["Next"], '%a %b %d %H:%M:%S %Y')
+        self.created = datetime.strptime(o["Created"], '%a %b %d %H:%M:%S %Y').date()
+        self.next = datetime.strptime(o["Next"], '%a %b %d %H:%M:%S %Y').date()
         self.completed = o["Completed"]
 
     def from_dict(self, o):
@@ -84,8 +84,8 @@ class Flashcard:
         self.notes = o["Notes"]
         self.imagepath = o["Image"]
         self.state = o["State"]
-        self.created = datetime.strptime(o["Created"], '%a %b %d %H:%M:%S %Y')
-        self.next = datetime.strptime(o["Next"], '%a %b %d %H:%M:%S %Y')
+        self.created = datetime.strptime(o["Created"], '%a %b %d %H:%M:%S %Y').date()
+        self.next = datetime.strptime(o["Next"], '%a %b %d %H:%M:%S %Y').date()
         self.completed = o["Completed"]
 
 

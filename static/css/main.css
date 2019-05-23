@@ -1,0 +1,30 @@
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.navbar-brand{
+    display: flex;
+    justify-content: center;
+}
+
+.overall-wrapper{
+    display: flex;
+    flex-flow: column;
+    margin: auto;
+    align-items: center;
+    width: 80vw;
+    padding: 40px 0 0 0;
+}
+
+.Pending{
+    background-color: #EADA52;
+}
+
+.None{
+    background-color: #03C03C;
+}
+
+.Overdue{
+    background-color: #F39A27;
+}
