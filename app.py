@@ -109,7 +109,11 @@ def getNext(subject, id):
             single_card = data[subject]["FlashCards"][id]
 
         return render_template("card.html",
-                               single_card=single_card)
+                               question=single_card["Question"],
+                               answer=single_card["Answer"],
+                               hint=single_card["Hint"],
+                               notes=single_card["Notes"],
+                               imagepath=single_card["Image"])
 
     if request.method == 'POST':
 
