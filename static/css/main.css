@@ -28,3 +28,8 @@
 .Overdue{
     background-color: #F39A27;
 }
+
+.add-new{
+    right: 2vw;
+    position: absolute;
+}

@@ -38,6 +38,7 @@ def home():
             today = datetime.datetime.now()
             converted = datetime.datetime.strptime(item["Next"], '%a %b %d %H:%M:%S %Y')
 
+
             # loop through questions and update
             if converted == today:
                 stats.append("Pending")
@@ -108,15 +109,18 @@ def getNext(subject, id):
             data = json.loads(f.read())
             single_card = data[subject]["FlashCards"][id]
 
+        imagepath = single_card["Image"]
+        if imagepath == "":
+            imagepath = "static/images/nothing-to-see-here-carrot.gif"
+
         return render_template("card.html",
                                question=single_card["Question"],
                                answer=single_card["Answer"],
                                hint=single_card["Hint"],
                                notes=single_card["Notes"],
-                               imagepath=single_card["Image"])
+                               imagepath=imagepath)
 
     if request.method == 'POST':
-
         # parse form
         file = request.files["Image"]
         filename = ""
